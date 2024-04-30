@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import useFetch from "./use-fetch";
+import { useState } from "react";
+import "./App.css";
+import Navbar from "./navbar";
+import Home from "./home";
+import { Routes, Route } from "react-router-dom";
+import Details from "./details";
+
+
+
 
 function App() {
+  const { data: countries } = useFetch("https://restcountries.com/v3.1/all");
+  console.log(countries);
+ 
+ 
+ 
+  // const { dog } = useParams();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       
+      <Routes>
+        <Route path= "/" element={<Home countries={countries}/>} />
+        <Route path="/filtered/:dog" element={<Details countries={countries}/>} />
+      </Routes>
+     
     </div>
   );
 }
